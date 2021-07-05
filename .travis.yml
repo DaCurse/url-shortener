@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - lts/*
+cache: yarn
+install:
+  - yarn install
+script:
+  - lerna run format --stream
+  - lerna run lint --stream
+  - lerna run test --stream
+  - lerna run test:e2e --stream
