@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LinkRepository } from './link.repository';
+import { LinksRepository } from './links.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LinkRepository])],
+  imports: [TypeOrmModule.forFeature([LinksRepository])],
   controllers: [],
   providers: [],
 })
