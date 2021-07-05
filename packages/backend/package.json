@@ -25,11 +25,11 @@
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/typeorm": "^7.1.5",
+    "pluralize": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",
     "sqlite3": "^5.0.2",
-    "typeorm": "^0.2.34",
-    "typeorm-naming-strategies": "^2.0.0"
+    "typeorm": "^0.2.34"
   }
 }
