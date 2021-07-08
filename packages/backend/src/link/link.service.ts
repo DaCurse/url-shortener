@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
@@ -12,7 +16,11 @@ export class LinkService {
 
   async insertOne(link: LinkDTO): Promise<Link> {
     const newLink = this.linkRepository.create(link);
-    await this.linkRepository.save(newLink);
+    try {
+      await this.linkRepository.save(newLink);
+    } catch {
+      throw new BadRequestException('Code already exists');
+    }
     return newLink;
   }
 
