@@ -1,12 +1,13 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
 import { LinksRepository } from './links.repository';
 import { LinksService } from './links.service';
 
-const sampleUrl = 'http://example.com/';
-const sampleDto = {
+const sampleUrl = 'http://example.com';
+const sampleDto: LinkDTO = {
   url: sampleUrl,
 };
 const sampleLink = new Link();
