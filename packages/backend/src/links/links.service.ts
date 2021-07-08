@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
@@ -17,6 +17,10 @@ export class LinksService {
   }
 
   async getOneByCode(code: Link['code']): Promise<Link> {
-    return this.linksRepository.findOneOrFail({ code });
+    try {
+      return await this.linksRepository.findOneOrFail({ code });
+    } catch {
+      throw new NotFoundException('Link not found');
+    }
   }
 }
