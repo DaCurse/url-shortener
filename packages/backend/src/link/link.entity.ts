@@ -6,7 +6,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ALPHABET, CODE_LENGTH } from '../config/links.config';
+import { ALPHABET, CODE_LENGTH } from '../config/link.config';
 
 const nanoid = customAlphabet(ALPHABET, CODE_LENGTH);
 

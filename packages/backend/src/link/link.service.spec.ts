@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
-import { LinksRepository } from './links.repository';
-import { LinksService } from './links.service';
+import { LinkRepository } from './link.repository';
+import { LinkService } from './link.service';
 
 const sampleUrl = 'http://example.com';
 const sampleDto: LinkDTO = {
@@ -13,17 +13,17 @@ const sampleDto: LinkDTO = {
 const sampleLink = new Link();
 sampleLink.url = sampleUrl;
 
-describe('LinksService', () => {
-  let service: LinksService;
-  let repository: LinksRepository;
+describe('LinkService', () => {
+  let service: LinkService;
+  let repository: LinkRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        LinksService,
+        LinkService,
         {
           provide: getRepositoryToken(Link),
-          useValue: createMock<LinksRepository>({
+          useValue: createMock<LinkRepository>({
             findOneOrFail: jest.fn().mockResolvedValue(sampleLink),
             create: jest.fn().mockReturnValue(sampleLink),
           }),
@@ -31,8 +31,8 @@ describe('LinksService', () => {
       ],
     }).compile();
 
-    service = module.get<LinksService>(LinksService);
-    repository = module.get<LinksRepository>(getRepositoryToken(Link));
+    service = module.get<LinkService>(LinkService);
+    repository = module.get<LinkRepository>(getRepositoryToken(Link));
   });
 
   it('should be defined', () => {

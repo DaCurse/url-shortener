@@ -1,9 +1,9 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
+import { LinkController } from './link.controller';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
-import { LinksController } from './links.controller';
-import { LinksService } from './links.service';
+import { LinkService } from './link.service';
 
 const sampleUrl = 'http://example.com';
 const sampleDto: LinkDTO = {
@@ -14,16 +14,16 @@ const sampleLink = {
   ...sampleDto,
 } as Link;
 
-describe('LinksController', () => {
-  let controller: LinksController;
+describe('LinkController', () => {
+  let controller: LinkController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [LinksController],
+      controllers: [LinkController],
       providers: [
         {
-          provide: LinksService,
-          useValue: createMock<LinksService>({
+          provide: LinkService,
+          useValue: createMock<LinkService>({
             insertOne: jest
               .fn()
               .mockImplementation((link: LinkDTO) =>
@@ -34,7 +34,7 @@ describe('LinksController', () => {
       ],
     }).compile();
 
-    controller = module.get<LinksController>(LinksController);
+    controller = module.get<LinkController>(LinkController);
   });
 
   it('should be defined', () => {
