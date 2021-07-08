@@ -10,9 +10,13 @@ export class LinksService {
     @InjectRepository(Link) private readonly linksRepository: LinksRepository
   ) {}
 
-  async createLink(link: LinkDTO): Promise<Link> {
+  async insertOne(link: LinkDTO): Promise<Link> {
     const newLink = this.linksRepository.create(link);
     await this.linksRepository.save(newLink);
     return newLink;
+  }
+
+  async getOneByCode(code: Link['code']): Promise<Link> {
+    return this.linksRepository.findOneOrFail({ code });
   }
 }

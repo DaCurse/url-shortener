@@ -23,6 +23,7 @@ describe('LinksService', () => {
         {
           provide: getRepositoryToken(Link),
           useValue: createMock<LinksRepository>({
+            findOneOrFail: jest.fn().mockResolvedValue(sampleLink),
             create: jest.fn().mockReturnValue(sampleLink),
           }),
         },
@@ -37,10 +38,20 @@ describe('LinksService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a link', () => {
-    expect(service.createLink(sampleDto)).resolves.toEqual(sampleLink);
-    expect(repository.create).toBeCalledTimes(1);
-    expect(repository.create).toBeCalledWith(sampleDto);
-    expect(repository.save).toBeCalledTimes(1);
+  describe('insertOne', () => {
+    it('should create a link', () => {
+      expect(service.insertOne(sampleDto)).resolves.toEqual(sampleLink);
+      expect(repository.create).toBeCalledTimes(1);
+      expect(repository.create).toBeCalledWith(sampleDto);
+      expect(repository.save).toBeCalledTimes(1);
+    });
+  });
+
+  describe('getOneByCode', () => {
+    it('should get one link', () => {
+      const repoSpy = jest.spyOn(repository, 'findOneOrFail');
+      expect(service.getOneByCode('foo')).resolves.toEqual(sampleLink);
+      expect(repoSpy).toBeCalledWith({ code: 'foo' });
+    });
   });
 });
