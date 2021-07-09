@@ -8,6 +8,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@golevelup/ts-jest": "^0.3.1",
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.0",
     "@nestjs/testing": "^7.6.15",
