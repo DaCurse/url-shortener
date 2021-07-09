@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { LinkDTO } from 'src/link/link.dto';
 import request from 'supertest';
 import { AppModule } from './../src/app.module';
 
-describe('AppController (e2e)', () => {
+describe('App (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -15,7 +16,28 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/');
+  afterAll(async () => {
+    await app.close();
+  });
+
+  describe('LinkModule', () => {
+    describe('POST /link/create', () => {
+      it('should create a link', async () => {
+        const dto: LinkDTO = {
+          url: 'http://example.com',
+        };
+        const res = await request(app.getHttpServer())
+          .post('/link/create')
+          .send(dto)
+          .expect(201);
+
+        expect(res.body).toEqual({
+          ...dto,
+          id: expect.any(Number),
+          code: expect.any(String),
+          visitCount: 0,
+        });
+      });
+    });
   });
 });
