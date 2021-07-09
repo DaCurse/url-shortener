@@ -55,9 +55,8 @@ describe('LinkService', () => {
 
   describe('getOneByCode', () => {
     it('should get one link', () => {
-      const repoSpy = jest.spyOn(repository, 'findOneOrFail');
       expect(service.getOneByCode(sampleCode)).resolves.toEqual(sampleLink);
-      expect(repoSpy).toBeCalledWith({ code: 'foo' });
+      expect(repository.findOneOrFail).toBeCalledWith({ code: 'foo' });
     });
   });
 
