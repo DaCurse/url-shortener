@@ -7,7 +7,7 @@ import { LinkDTO } from '../src/link/link.dto';
 describe('App (e2e)', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -16,13 +16,9 @@ describe('App (e2e)', () => {
     await app.init();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
-
   describe('LinkModule', () => {
-    describe('POST /link/create', () => {
-      it('should create a link', async () => {
+    describe('POST /link/create, GET /:code', () => {
+      it('should create new link and redirect to url', async () => {
         const dto: LinkDTO = {
           url: 'http://example.com',
         };
@@ -30,13 +26,18 @@ describe('App (e2e)', () => {
           .post('/link/create')
           .send(dto)
           .expect(201);
-
         expect(res.body).toEqual({
           ...dto,
           id: expect.any(Number),
           code: expect.any(String),
           visitCount: 0,
         });
+
+        const link = res.body;
+        await request(app.getHttpServer())
+          .get(`/${link.code}`)
+          .expect(302)
+          .expect('Location', link.url);
       });
     });
   });
