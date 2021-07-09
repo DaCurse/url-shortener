@@ -36,7 +36,7 @@ export class LinkService {
     await this.linkRepository
       .createQueryBuilder()
       .update(Link)
-      .set({ visitCount: () => 'visitCount + 1' })
+      .set({ visitCount: () => 'visit_count + 1' })
       .where('code = :code', { code })
       .execute();
 

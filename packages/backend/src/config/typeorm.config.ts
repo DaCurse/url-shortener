@@ -14,6 +14,7 @@ const productionConfig: TypeOrmModuleOptions = {
 const testConfig: TypeOrmModuleOptions = {
   type: 'sqlite',
   database: ':memory:',
+  namingStrategy: new TypeOrmNamingStrategy(),
   entities: [path.join(__dirname, '../**/*.entity.{js,ts}')],
   synchronize: true,
 };
