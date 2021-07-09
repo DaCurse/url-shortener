@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { LinkDTO } from 'src/link/link.dto';
 import request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { AppModule } from '../src/app.module';
+import { LinkDTO } from '../src/link/link.dto';
 
 describe('App (e2e)', () => {
   let app: INestApplication;
