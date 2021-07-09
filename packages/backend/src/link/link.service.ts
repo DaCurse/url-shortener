@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EntityNotFoundError } from 'typeorm';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
 import { LinkRepository } from './link.repository';
@@ -27,8 +28,11 @@ export class LinkService {
   async getOneByCode(code: Link['code']): Promise<Link> {
     try {
       return await this.linkRepository.findOneOrFail({ code });
-    } catch {
-      throw new NotFoundException('Link not found');
+    } catch (e) {
+      if (e instanceof EntityNotFoundError) {
+        throw new NotFoundException('Link not found');
+      }
+      throw e;
     }
   }
 
