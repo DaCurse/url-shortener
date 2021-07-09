@@ -10,8 +10,13 @@ const sampleUrl = 'http://example.com';
 const sampleDto: LinkDTO = {
   url: sampleUrl,
 };
-const sampleLink = new Link();
-sampleLink.url = sampleUrl;
+const sampleCode = 'foo';
+const sampleLink = {
+  id: 1,
+  code: sampleCode,
+  url: sampleUrl,
+  visitCount: 0,
+} as Link;
 
 describe('LinkService', () => {
   let service: LinkService;
@@ -51,8 +56,36 @@ describe('LinkService', () => {
   describe('getOneByCode', () => {
     it('should get one link', () => {
       const repoSpy = jest.spyOn(repository, 'findOneOrFail');
-      expect(service.getOneByCode('foo')).resolves.toEqual(sampleLink);
+      expect(service.getOneByCode(sampleCode)).resolves.toEqual(sampleLink);
       expect(repoSpy).toBeCalledWith({ code: 'foo' });
+    });
+  });
+
+  describe('incrementVisitCount', () => {
+    it('should create a query that increments the visit count', async () => {
+      const repoSpy = jest
+        .spyOn(repository, 'createQueryBuilder')
+        .mockReturnValue({
+          update: jest.fn().mockReturnThis(),
+          set: jest.fn().mockReturnThis(),
+          where: jest.fn().mockReturnThis(),
+          execute: jest.fn(),
+        } as any);
+
+      await service.incrementVisitCount(sampleCode);
+      expect(repoSpy).toBeCalledTimes(1);
+
+      const queryBuilder = repoSpy.mock.results[0].value;
+      expect(queryBuilder.update).toBeCalledTimes(1);
+      expect(queryBuilder.set).toBeCalledTimes(1);
+      expect(queryBuilder.set).toBeCalledWith({
+        visitCount: expect.any(Function),
+      });
+      expect(queryBuilder.where).toBeCalledTimes(1);
+      expect(queryBuilder.where).toBeCalledWith(expect.any(String), {
+        code: sampleCode,
+      });
+      expect(queryBuilder.execute).toBeCalledTimes(1);
     });
   });
 });

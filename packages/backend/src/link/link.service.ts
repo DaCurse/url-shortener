@@ -31,4 +31,15 @@ export class LinkService {
       throw new NotFoundException('Link not found');
     }
   }
+
+  async incrementVisitCount(code: Link['code']): Promise<Link> {
+    await this.linkRepository
+      .createQueryBuilder()
+      .update(Link)
+      .set({ visitCount: () => 'visitCount + 1' })
+      .where('code = :code', { code })
+      .execute();
+
+    return this.getOneByCode(code);
+  }
 }
