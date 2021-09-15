@@ -1,9 +1,10 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { IconButton, Tooltip } from '@mui/material';
+import { ButtonGroup, IconButton, Tooltip } from '@mui/material';
+import ThemeSwitcher from './ThemeSwitcher';
 
 function Footer() {
   return (
-    <>
+    <ButtonGroup>
       <Tooltip title="View source">
         <IconButton
           aria-label="GitHub Repository"
@@ -13,7 +14,8 @@ function Footer() {
           <GitHubIcon />
         </IconButton>
       </Tooltip>
-    </>
+      <ThemeSwitcher />
+    </ButtonGroup>
   );
 }
 
