@@ -1,4 +1,5 @@
 import { Box, Container } from '@mui/material';
+import Footer from './Footer';
 import Form from './Form';
 import Header from './Header';
 
@@ -15,6 +16,7 @@ function App() {
       >
         <Header />
         <Form />
+        <Footer />
       </Box>
     </Container>
   );
