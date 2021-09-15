@@ -1,8 +1,20 @@
+import { Box, Container } from '@mui/material';
+import Header from './Header';
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-    </div>
+    <Container className="App" component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Header />
+      </Box>
+    </Container>
   );
 }
 
