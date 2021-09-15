@@ -1,24 +1,44 @@
-import { Box, Button, TextField } from '@mui/material';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import SendIcon from '@mui/icons-material/Send';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+} from '@mui/material';
 
 function Form() {
+  const submitButton = (
+    <Tooltip title="Send">
+      <IconButton type="submit">
+        <SendIcon />
+      </IconButton>
+    </Tooltip>
+  );
+
   function handleSubmit() {}
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
       <TextField
-        margin="normal"
-        required
-        fullWidth
         id="url"
+        margin="normal"
+        fullWidth
         label="URL to shorten"
         type="url"
-        name="url"
         autoComplete="url"
         autoFocus
+        required
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <InsertLinkIcon />
+            </InputAdornment>
+          ),
+          endAdornment: submitButton,
+        }}
       />
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        Shorten
-      </Button>
     </Box>
   );
 }
