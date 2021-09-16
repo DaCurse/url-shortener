@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { throttlerConfig } from 'src/config/throttler.config';
+import { throttlerConfig } from '../config/throttler.config';
 import { LinkController } from './link.controller';
 import { Link } from './link.entity';
 import { LinkService } from './link.service';
