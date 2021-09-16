@@ -7,8 +7,11 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 function Form() {
+  const [isValid, setIsValid] = useState(true);
+
   const submitButton = (
     <Tooltip title="Send">
       <IconButton type="submit">
@@ -17,10 +20,20 @@ function Form() {
     </Tooltip>
   );
 
-  function handleSubmit() {}
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setIsValid(e.currentTarget.checkValidity());
+  }
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (isValid) {
+      // TODO: Request API
+    }
+  }
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <TextField
         id="url"
         margin="normal"
@@ -30,6 +43,8 @@ function Form() {
         autoComplete="url"
         autoFocus
         required
+        error={!isValid}
+        onChange={handleChange}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
