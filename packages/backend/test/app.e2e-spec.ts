@@ -30,7 +30,6 @@ describe('App (e2e)', () => {
           ...dto,
           id: expect.any(Number),
           code: expect.any(String),
-          visitCount: 0,
         });
 
         const link = res.body;
