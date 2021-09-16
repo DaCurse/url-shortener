@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - lts/*
 cache: yarn
+env:
+  - SKIP_PREFLIGHT_CHECK=true
 install:
   - yarn install
 script:
