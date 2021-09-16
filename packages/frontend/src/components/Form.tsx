@@ -28,7 +28,7 @@ function Form() {
 
   const submitButton = (
     <Tooltip title="Send">
-      <IconButton type="submit">
+      <IconButton type="submit" disabled={mutation.isLoading}>
         <SendIcon />
       </IconButton>
     </Tooltip>
