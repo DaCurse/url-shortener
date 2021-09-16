@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Backend for the url shortener",
   "author": "DaCurse",
   "private": true,
