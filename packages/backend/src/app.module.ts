@@ -1,10 +1,18 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeormConfig } from './config/typeorm.config';
 import { LinkModule } from './link/link.module';
+import { StaticMiddleware } from './middleware/static.middleware';
 import { RedirectModule } from './redirect/redirect.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(typeormConfig), LinkModule, RedirectModule],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(StaticMiddleware)
+      .exclude('link/(.*)')
+      .forRoutes({ path: '/*', method: RequestMethod.GET });
+  }
+}
