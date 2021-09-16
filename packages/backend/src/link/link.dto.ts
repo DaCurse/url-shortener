@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsUrl, Length } from 'class-validator';
-import { MAX_CODE_LENGTH } from 'src/config/link.config';
+import { MAX_CODE_LENGTH } from '../config/link.config';
 
 export class LinkDTO {
   @IsNotEmpty()

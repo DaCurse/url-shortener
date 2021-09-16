@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { customAlphabet } from 'nanoid';
 import {
   BaseEntity,
@@ -22,6 +23,7 @@ export class Link extends BaseEntity {
   code: string;
 
   @Column({ default: 0 })
+  @Exclude()
   visitCount: number;
 
   @BeforeInsert()
@@ -29,5 +31,10 @@ export class Link extends BaseEntity {
     if (!this.code) {
       this.code = nanoid();
     }
+  }
+
+  constructor(partial: Partial<Link>) {
+    super();
+    Object.assign(this, partial);
   }
 }
