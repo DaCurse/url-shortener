@@ -1,5 +1,6 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { LinkController } from './link.controller';
 import { LinkDTO } from './link.dto';
 import { Link } from './link.entity';
@@ -19,6 +20,7 @@ describe('LinkController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [ThrottlerModule.forRoot()],
       controllers: [LinkController],
       providers: [
         {
