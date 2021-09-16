@@ -3,6 +3,6 @@
   "name": "A URL Shortener",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#0288d1",
   "background_color": "#ffffff"
 }
