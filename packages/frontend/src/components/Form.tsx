@@ -1,3 +1,4 @@
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -48,11 +49,19 @@ function Form() {
       break;
     case 'success':
       const { data: newLink } = mutation.data;
+      const shortenedUrl = `${window.location.origin}/${newLink.code}`;
+      const copyUrl = () => navigator.clipboard.writeText(shortenedUrl);
+      const copyUrlButton = (
+        <IconButton onClick={copyUrl}>
+          <ContentCopyIcon />
+        </IconButton>
+      );
+
       statusMessage = (
-        <Alert severity="success">
+        <Alert severity="success" action={copyUrlButton}>
           Link created:{' '}
-          <Link href={`/${newLink.code}`} target="_blank">
-            {window.location.origin}/{newLink.code}
+          <Link href={shortenedUrl} target="_blank">
+            {shortenedUrl}
           </Link>
         </Alert>
       );
