@@ -2,17 +2,18 @@ FROM node:lts as base
 
 WORKDIR /build
 
-RUN yarn global add lerna
+RUN yarn global add lerna && yarn config set workspaces-experimental true
 # Copying relevant packages
 COPY packages/backend ./packages/backend
+COPY packages/frontend ./packages/frontend
 # Copying required files from root package
 COPY package.json yarn.lock .yarnclean lerna.json tsconfig.* ./
-# Installing deps (Yarn Workspaces will link everything up)
-RUN yarn --prod
+# Installing required deps for backend
+RUN yarn workspace backend install --prod
 
 FROM base as dev
 
-# Installing dev deps and building the package
+# Installing dev deps and building the packages
 RUN yarn --ignore-scripts && lerna run build --stream
 
 FROM node:lts-alpine3.12
@@ -31,8 +32,9 @@ EXPOSE ${PORT}
 
 CMD ["yarn", "start:prod"]
 
-# Copying built package and package.json for scripts
+# Copying built server and client packages and package.json for scripts
 COPY --from=base /build/packages/backend/package.json ./
 COPY --from=dev /build/packages/backend/dist/ ./dist/
+COPY --from=dev /build/packages/frontend/build/ ./client/
 # Only copy non-dev deps
 COPY --from=base /build/node_modules/ ./node_modules
