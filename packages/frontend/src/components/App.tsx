@@ -1,4 +1,5 @@
 import { Box, Container } from '@mui/material';
+import QueryStringError from '../containers/QueryStringError';
 import Footer from './Footer';
 import Form from './Form';
 import Header from './Header';
@@ -17,6 +18,7 @@ function App() {
         <Header />
         <Form />
         <Footer />
+        <QueryStringError />
       </Box>
     </Container>
   );
