@@ -1,7 +1,7 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Response } from 'express';
-import { Link } from 'src/link/link.entity';
+import { Link } from '../link/link.entity';
 import { LinkService } from '../link/link.service';
 import { RedirectController } from './redirect.controller';
 
