@@ -9,9 +9,9 @@ export class StaticMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const rootPath = join(__dirname, STATIC_ROOT_PATH);
     const clientPath =
-      req.url === '/'
+      req.path === '/'
         ? StaticMiddleware.getIndexFilePath(rootPath)
-        : join(rootPath, req.url);
+        : join(rootPath, req.path);
 
     try {
       const stat = await fs.stat(clientPath);
