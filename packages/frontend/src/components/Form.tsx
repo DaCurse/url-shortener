@@ -11,13 +11,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import {
-  ChangeEvent,
-  FormEvent,
-  MutableRefObject,
-  useRef,
-  useState,
-} from 'react';
+import { FormEvent, MutableRefObject, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { APIError } from '../api/api-error';
 import { LinkDTO } from '../api/link.dto';
@@ -71,7 +65,7 @@ function Form() {
     return isFormValid;
   }
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange() {
     validateForm();
   }
 
