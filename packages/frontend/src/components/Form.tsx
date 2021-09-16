@@ -51,8 +51,8 @@ function Form() {
       statusMessage = (
         <Alert severity="success">
           Link created:{' '}
-          <Link href={newLink.code} target="_blank">
-            {window.location.href + newLink.code}
+          <Link href={`/${newLink.code}`} target="_blank">
+            {window.location.origin}/{newLink.code}
           </Link>
         </Alert>
       );
