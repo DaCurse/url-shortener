@@ -35,6 +35,6 @@ CMD ["yarn", "start:prod"]
 # Copying built server and client packages and package.json for scripts
 COPY --from=base /build/packages/backend/package.json ./
 COPY --from=dev /build/packages/backend/dist/ ./dist/
-COPY --from=dev /build/packages/frontend/build/ ./client/
+COPY --from=dev /build/packages/frontend/build/ ./dist/client/
 # Only copy non-dev deps
 COPY --from=base /build/node_modules/ ./node_modules
