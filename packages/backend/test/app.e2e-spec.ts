@@ -16,6 +16,10 @@ describe('App (e2e)', () => {
     await app.init();
   });
 
+  afterAll(() => {
+    setTimeout(() => app.close(), 100);
+  });
+
   describe('LinkModule', () => {
     describe('POST /link/create, GET /:code', () => {
       it('should create new link and redirect to url', async () => {
