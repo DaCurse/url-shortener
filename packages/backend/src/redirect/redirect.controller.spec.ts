@@ -4,6 +4,7 @@ import { Response } from 'express';
 import { Link } from '../link/link.entity';
 import { LinkService } from '../link/link.service';
 import { RedirectController } from './redirect.controller';
+import { RedirectService } from './redirect.service';
 
 const sampleUrl = 'http://example.com';
 const sampleCode = 'foo';
@@ -32,6 +33,7 @@ describe('RedirectController', () => {
               ),
           }),
         },
+        { provide: RedirectService, useValue: createMock<RedirectService>() },
       ],
     }).compile();
 
