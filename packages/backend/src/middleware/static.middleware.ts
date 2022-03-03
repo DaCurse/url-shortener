@@ -15,7 +15,7 @@ export class StaticMiddleware implements NestMiddleware {
 
     try {
       const stat = await fs.stat(clientPath);
-      if (stat.isFile()) {
+      if (clientPath.startsWith(rootPath) && stat.isFile()) {
         res.sendFile(clientPath);
       } else {
         next();
